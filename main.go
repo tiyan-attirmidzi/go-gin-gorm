@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -12,9 +13,9 @@ func main() {
 	_, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 
 	if err != nil {
-		fmt.Println("Connection DB Error :", err.Error())
-	} else {
-		fmt.Println("DB Connected Successfully")
+		log.Fatal("Connection DB Error :", err.Error())
 	}
+
+	fmt.Println("DB Connected Successfully")
 
 }
