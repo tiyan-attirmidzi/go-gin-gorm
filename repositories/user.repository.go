@@ -1,6 +1,8 @@
 package repositories
 
 import (
+	"log"
+
 	"github.com/tiyan-attirmidzi/go-rest-api/entities"
 	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
@@ -32,7 +34,13 @@ func (db *userConnectin) StoreUser(user entities.User) entities.User {
 }
 
 func (db *userConnectin) UpdateUser(user entities.User) entities.User {
-	user.Password = hashAndSalt([]byte(user.Password))
+	if user.Password != "" {
+		user.Password = hashAndSalt([]byte(user.Password))
+	} else {
+		var tempUser entities.User
+		db.connection.Find(&tempUser, user.ID)
+		user.Password = tempUser.Password
+	}
 	db.connection.Save(&user)
 	return user
 }
@@ -66,7 +74,8 @@ func (db *userConnectin) ProfileUser(userID string) entities.User {
 func hashAndSalt(pwd []byte) string {
 	hash, err := bcrypt.GenerateFromPassword(pwd, bcrypt.MinCost)
 	if err != nil {
-		// log.Fatal("Generate Hash Failed!")
+		// log.Println(err)
+		log.Fatal(err)
 		panic("Failed to Hash Password!")
 	}
 	return string(hash)

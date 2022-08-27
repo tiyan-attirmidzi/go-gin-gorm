@@ -2,11 +2,10 @@ package services
 
 import (
 	"fmt"
-	"log"
 	"os"
 	"time"
 
-	"github.com/golang-jwt/jwt/v4"
+	"github.com/dgrijalva/jwt-go"
 )
 
 type JWTService interface {
@@ -15,7 +14,7 @@ type JWTService interface {
 }
 
 type jwtCustomClaim struct {
-	UserID string `json:"useri_id"`
+	UserID string `json:"user_id"`
 	jwt.StandardClaims
 }
 
@@ -27,31 +26,32 @@ type jwtService struct {
 // jekjekwjkejwkew kwkjew ewke k
 func NewJWTService() JWTService {
 	return &jwtService{
-		issuer:    "",
+		issuer:    "atmdz",
 		secretKey: getSecretKey(),
 	}
 }
 
 func getSecretKey() string {
-	secretKey := os.Getenv("APP_SECRET")
+	secretKey := os.Getenv("APP_JWT_SECRET")
 	if secretKey != "" {
-		log.Fatal("SECRET KEY not found!")
+		// log.Fatal("SECRET KEY not found!")
+		secretKey = "atmdz"
 	}
 	return secretKey
 }
 
-func (j *jwtService) GenerateToken(UserID string) string {
+func (s *jwtService) GenerateToken(UserID string) string {
 	claims := &jwtCustomClaim{
 		UserID,
 		jwt.StandardClaims{
 			// ExpiresAt: time.Now().AddDate(1,0,0).Unix(), // expired 1 year
 			ExpiresAt: time.Now().Add(time.Hour * 24).Unix(),
-			Issuer:    j.issuer,
+			Issuer:    s.issuer,
 			IssuedAt:  time.Now().Unix(),
 		},
 	}
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	t, err := token.SignedString([]byte(j.secretKey))
+	t, err := token.SignedString([]byte(s.secretKey))
 	if err != nil {
 		panic(err)
 	}

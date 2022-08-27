@@ -4,11 +4,11 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/dgrijalva/jwt-go"
 	"github.com/tiyan-attirmidzi/go-rest-api/helpers"
 	"github.com/tiyan-attirmidzi/go-rest-api/services"
 
 	"github.com/gin-gonic/gin"
-	"github.com/golang-jwt/jwt/v4"
 )
 
 func Authorize(jwtService services.JWTService) gin.HandlerFunc {
