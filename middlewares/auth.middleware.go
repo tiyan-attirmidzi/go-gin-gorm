@@ -4,18 +4,18 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/dgrijalva/jwt-go"
 	"github.com/tiyan-attirmidzi/go-rest-api/helpers"
 	"github.com/tiyan-attirmidzi/go-rest-api/services"
 
 	"github.com/gin-gonic/gin"
-	"github.com/golang-jwt/jwt/v4"
 )
 
 func Authorize(jwtService services.JWTService) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		authHeader := ctx.GetHeader("Authorization")
 		if authHeader == "" {
-			response := helpers.BuildResponseError("Sorry, You're Unauthorized", "Token not found", nil)
+			response := helpers.ResponseError("Sorry, You're Unauthorized", "Token not found", nil)
 			ctx.AbortWithStatusJSON(http.StatusUnauthorized, response)
 			return
 		}
@@ -26,7 +26,7 @@ func Authorize(jwtService services.JWTService) gin.HandlerFunc {
 			log.Println("Claim[issuer]: ", claims["issuer"])
 		} else {
 			log.Println(err)
-			response := helpers.BuildResponseError("Sorry, Token Is Not Valid", err.Error(), nil)
+			response := helpers.ResponseError("Sorry, Token Is Not Valid", err.Error(), nil)
 			ctx.AbortWithStatusJSON(http.StatusUnauthorized, response)
 		}
 	}

@@ -36,7 +36,7 @@ func DatabaseConnection() *gorm.DB {
 
 }
 
-func DatabaseRejection(db *gorm.DB) {
+func DatabaseDisconnection(db *gorm.DB) {
 	dbSQL, err := db.DB()
 
 	if err != nil {

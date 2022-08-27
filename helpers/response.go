@@ -13,7 +13,7 @@ type Response struct {
 
 type EmptyObj struct{}
 
-func BuildResponseSuccess(status bool, message string, data interface{}) Response {
+func ResponseSuccess(status bool, message string, data interface{}) Response {
 	res := Response{
 		Status:  status,
 		Message: message,
@@ -23,7 +23,7 @@ func BuildResponseSuccess(status bool, message string, data interface{}) Respons
 	return res
 }
 
-func BuildResponseError(message string, err string, data interface{}) Response {
+func ResponseError(message string, err string, data interface{}) Response {
 	splittedError := strings.Split(err, "\n")
 	res := Response{
 		Status:  false,

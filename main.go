@@ -14,7 +14,7 @@ var (
 )
 
 func main() {
-	defer configs.DatabaseRejection(db)
+	defer configs.DatabaseDisconnection(db)
 	r := gin.Default()
 
 	authRoutes := r.Group("api/auth")
