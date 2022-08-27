@@ -1,10 +1,11 @@
 package middlewares
 
 import (
-	"go-rest-api/helpers"
-	"go-rest-api/services"
 	"log"
 	"net/http"
+
+	"github.com/tiyan-attirmidzi/go-rest-api/helpers"
+	"github.com/tiyan-attirmidzi/go-rest-api/services"
 
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v4"

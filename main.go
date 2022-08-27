@@ -1,8 +1,8 @@
 package main
 
 import (
-	"go-rest-api/configs"
-	"go-rest-api/controllers"
+	"github.com/tiyan-attirmidzi/go-rest-api/configs"
+	"github.com/tiyan-attirmidzi/go-rest-api/controllers"
 
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
