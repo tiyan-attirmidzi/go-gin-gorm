@@ -1,4 +1,4 @@
-module go-rest-api
+module github.com/tiyan-attirmidzi/go-rest-api
 
 go 1.18
 
