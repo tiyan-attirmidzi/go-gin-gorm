@@ -21,6 +21,10 @@ type authService struct {
 	userRepository repositories.UserRepository
 }
 
+type Err struct {
+	Field string
+}
+
 func NewAuthService(userRepo repositories.UserRepository) AuthService {
 	return &authService{
 		userRepository: userRepo,
@@ -34,9 +38,10 @@ func (s *authService) VerifyCredential(email, password string) interface{} {
 		if v.Email == email && comparedPassword {
 			return res
 		}
-		return false
+		return Err{Field: "password"}
 	}
-	return false
+	return Err{Field: "email"}
+	// return false
 }
 
 func (s *authService) CreateUser(user dto.AuthSignUpDTO) entities.User {
@@ -62,8 +67,8 @@ func comparePassword(hashedPassword string, plainPassword []byte) bool {
 	byteHash := []byte(hashedPassword)
 	err := bcrypt.CompareHashAndPassword(byteHash, plainPassword)
 	if err != nil {
-		// log.Println(err)
-		log.Fatal(err)
+		log.Println(err)
+		// log.Fatal(err)
 		return false
 	}
 	return true

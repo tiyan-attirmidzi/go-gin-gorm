@@ -17,23 +17,23 @@ type UserRepository interface {
 	ProfileUser(userID string) entities.User
 }
 
-type userConnectin struct {
+type userConnection struct {
 	connection *gorm.DB
 }
 
 func NewUserRespository(db *gorm.DB) UserRepository {
-	return &userConnectin{
+	return &userConnection{
 		connection: db,
 	}
 }
 
-func (db *userConnectin) StoreUser(user entities.User) entities.User {
+func (db *userConnection) StoreUser(user entities.User) entities.User {
 	user.Password = hashAndSalt([]byte(user.Password))
 	db.connection.Save(&user)
 	return user
 }
 
-func (db *userConnectin) UpdateUser(user entities.User) entities.User {
+func (db *userConnection) UpdateUser(user entities.User) entities.User {
 	if user.Password != "" {
 		user.Password = hashAndSalt([]byte(user.Password))
 	} else {
@@ -45,7 +45,7 @@ func (db *userConnectin) UpdateUser(user entities.User) entities.User {
 	return user
 }
 
-func (db *userConnectin) VerifyCredential(email, password string) interface{} {
+func (db *userConnection) VerifyCredential(email, password string) interface{} {
 	var user entities.User
 	res := db.connection.Where("email = ?", email).Take(&user)
 	if res.Error == nil {
@@ -54,18 +54,18 @@ func (db *userConnectin) VerifyCredential(email, password string) interface{} {
 	return nil
 }
 
-func (db *userConnectin) IsDuplicateEmail(email string) (tx *gorm.DB) {
+func (db *userConnection) IsDuplicateEmail(email string) (tx *gorm.DB) {
 	var user entities.User
 	return db.connection.Where("email = ?", email).Take(&user)
 }
 
-func (db *userConnectin) FindByEmail(email string) entities.User {
+func (db *userConnection) FindByEmail(email string) entities.User {
 	var user entities.User
 	db.connection.Where("email = ?", email).Take(&user)
 	return user
 }
 
-func (db *userConnectin) ProfileUser(userID string) entities.User {
+func (db *userConnection) ProfileUser(userID string) entities.User {
 	var user entities.User
 	db.connection.Find(&user, userID)
 	return user
