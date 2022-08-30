@@ -5,6 +5,7 @@ import (
 	"os"
 
 	"github.com/joho/godotenv"
+	"github.com/tiyan-attirmidzi/go-rest-api/entities"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
@@ -30,7 +31,10 @@ func DatabaseConnection() *gorm.DB {
 	}
 
 	// TODO: Add Model to Migrate
-	// db.AutoMigrate()
+	db.AutoMigrate(
+		&entities.User{},
+		&entities.Book{},
+	)
 
 	return db
 

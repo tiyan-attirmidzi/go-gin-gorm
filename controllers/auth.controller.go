@@ -49,6 +49,18 @@ func (c *authController) SignIn(ctx *gin.Context) {
 		return
 	}
 
+	if v, ok := authResult.(services.Err); ok {
+		var errMsg string
+		if v.Field == "email" {
+			errMsg = "Email Not Found"
+		} else {
+			errMsg = "Password Invalid"
+		}
+		response := helpers.ResponseError("Please check again your credential", errMsg, helpers.EmptyObj{})
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, response)
+		return
+	}
+
 	response := helpers.ResponseError("Please check again your credential", "Invalid Credential", helpers.EmptyObj{})
 	ctx.AbortWithStatusJSON(http.StatusUnauthorized, response)
 
@@ -65,7 +77,7 @@ func (c *authController) SignUp(ctx *gin.Context) {
 		return
 	}
 
-	if c.authService.IsDuplicateEmail(signUpDTO.Email) {
+	if !c.authService.IsDuplicateEmail(signUpDTO.Email) {
 		response := helpers.ResponseError("Failed to process request", "Email Has Registered", helpers.EmptyObj{})
 		ctx.AbortWithStatusJSON(http.StatusConflict, response)
 		return
@@ -77,4 +89,5 @@ func (c *authController) SignUp(ctx *gin.Context) {
 		ctx.JSON(http.StatusCreated, response)
 		return
 	}
+
 }
