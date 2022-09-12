@@ -124,7 +124,7 @@ func (c *bookController) Delete(ctx *gin.Context) {
 	userID := fmt.Sprintf("%v", claims["user_id"])
 	if c.bookService.IsAllowedToEdit(userID, book.ID) {
 		c.bookService.Delete(book)
-		res := helpers.ResponseSuccess(true, "Book Deleted Successfully!", book)
+		res := helpers.ResponseSuccess(true, "Book Deleted Successfully!", helpers.EmptyObj{})
 		ctx.JSON(http.StatusOK, res)
 	} else {
 		res := helpers.ResponseError("You don't have permission", "You're not the owner", helpers.EmptyObj{})
