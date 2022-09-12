@@ -1,6 +1,7 @@
 package services
 
 import (
+	"fmt"
 	"log"
 
 	"github.com/mashingan/smapping"
@@ -42,8 +43,7 @@ func (s *bookService) Store(book dto.BookCreate) entities.Book {
 	if err != nil {
 		log.Fatalf("Failed map %v: ", err)
 	}
-	res := s.bookRepository.Store(data)
-	return res
+	return s.bookRepository.Store(data)
 }
 
 func (s *bookService) Update(book dto.BookUpdate) entities.Book {
@@ -59,6 +59,8 @@ func (s *bookService) Delete(book entities.Book) entities.Book {
 	return s.bookRepository.Delete(book)
 }
 
-func (s *bookService) IsAllowedToEdit() bool {
-	return true
+func (s *bookService) IsAllowedToEdit(userID string, bookID uint64) bool {
+	book := s.bookRepository.Show(bookID)
+	id := fmt.Sprintf("%v", book.UserID)
+	return userID == id
 }
