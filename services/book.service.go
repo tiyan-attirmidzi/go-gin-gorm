@@ -5,9 +5,9 @@ import (
 	"log"
 
 	"github.com/mashingan/smapping"
-	"github.com/tiyan-attirmidzi/go-rest-api/dto"
-	"github.com/tiyan-attirmidzi/go-rest-api/entities"
-	"github.com/tiyan-attirmidzi/go-rest-api/repositories"
+	"github.com/tiyan-attirmidzi/go-gin-gorm/dto"
+	"github.com/tiyan-attirmidzi/go-gin-gorm/entities"
+	"github.com/tiyan-attirmidzi/go-gin-gorm/repositories"
 )
 
 type BookService interface {

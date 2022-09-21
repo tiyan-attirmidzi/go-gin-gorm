@@ -5,8 +5,8 @@ import (
 	"net/http"
 
 	"github.com/dgrijalva/jwt-go"
-	"github.com/tiyan-attirmidzi/go-rest-api/helpers"
-	"github.com/tiyan-attirmidzi/go-rest-api/services"
+	"github.com/tiyan-attirmidzi/go-gin-gorm/helpers"
+	"github.com/tiyan-attirmidzi/go-gin-gorm/services"
 
 	"github.com/gin-gonic/gin"
 )

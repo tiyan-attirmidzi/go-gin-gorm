@@ -7,9 +7,9 @@ import (
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
-	"github.com/tiyan-attirmidzi/go-rest-api/dto"
-	"github.com/tiyan-attirmidzi/go-rest-api/helpers"
-	"github.com/tiyan-attirmidzi/go-rest-api/services"
+	"github.com/tiyan-attirmidzi/go-gin-gorm/dto"
+	"github.com/tiyan-attirmidzi/go-gin-gorm/helpers"
+	"github.com/tiyan-attirmidzi/go-gin-gorm/services"
 )
 
 type UserController interface {

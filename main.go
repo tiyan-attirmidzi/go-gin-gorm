@@ -1,11 +1,11 @@
 package main
 
 import (
-	"github.com/tiyan-attirmidzi/go-rest-api/configs"
-	"github.com/tiyan-attirmidzi/go-rest-api/controllers"
-	"github.com/tiyan-attirmidzi/go-rest-api/middlewares"
-	"github.com/tiyan-attirmidzi/go-rest-api/repositories"
-	"github.com/tiyan-attirmidzi/go-rest-api/services"
+	"github.com/tiyan-attirmidzi/go-gin-gorm/configs"
+	"github.com/tiyan-attirmidzi/go-gin-gorm/controllers"
+	"github.com/tiyan-attirmidzi/go-gin-gorm/middlewares"
+	"github.com/tiyan-attirmidzi/go-gin-gorm/repositories"
+	"github.com/tiyan-attirmidzi/go-gin-gorm/services"
 
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"

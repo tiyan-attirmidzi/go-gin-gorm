@@ -1,7 +1,7 @@
 package repositories
 
 import (
-	"github.com/tiyan-attirmidzi/go-rest-api/entities"
+	"github.com/tiyan-attirmidzi/go-gin-gorm/entities"
 	"gorm.io/gorm"
 )
 
